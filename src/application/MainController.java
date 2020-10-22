@@ -4,10 +4,6 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import com.sun.deploy.uitoolkit.impl.fx.HostServicesFactory;
-import com.sun.javafx.application.*;
-
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -53,8 +49,6 @@ public class MainController implements Initializable{
 
     public void openBrowser(ActionEvent actionEvent) throws Exception {
 
-                
-       
     	System.out.println("Hello---");
 
     }	

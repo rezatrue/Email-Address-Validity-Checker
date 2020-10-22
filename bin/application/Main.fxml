@@ -9,19 +9,19 @@
 
 <AnchorPane prefHeight="112.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
-      <Button id="checkBtn" layoutX="323.0" layoutY="20.0" mnemonicParsing="false" onAction="#genrerateRandom" text="Check" />
+      <Button id="checkBtn" layoutX="327.0" layoutY="20.0" mnemonicParsing="false" onAction="#genrerateRandom" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: #91da90; -fx-font-weight: bold;" text="Check" />
       <Label layoutX="14.0" layoutY="24.0" text="Email Address" />
-      <TextField id="emailAddress" fx:id="textField" layoutX="103.0" layoutY="20.0" onAction="#genrerateRandom" prefHeight="25.0" prefWidth="200.0" promptText="Your Email Address" />
+      <TextField id="emailAddress" fx:id="textField" layoutX="103.0" layoutY="20.0" onAction="#genrerateRandom" prefHeight="25.0" prefWidth="211.0" promptText="Your Email Address" />
       <Label layoutX="14.0" layoutY="56.0" text="Email : " />
       <Label fx:id="emailText" layoutX="59.0" layoutY="56.0" prefHeight="17.0" prefWidth="151.0" text="Empty" />
       <Label layoutX="15.0" layoutY="80.0" text="Status : " />
       <Label fx:id="statusText" layoutX="59.0" layoutY="81.0" prefHeight="17.0" prefWidth="106.0" text="Unknown " />
-      <Hyperlink accessibleText="http://technogearup.com/" layoutX="259.0" layoutY="72.0" onMouseClicked="#openBrowser" prefHeight="28.0" prefWidth="113.0" text="Techno Gear Up">
+      <Hyperlink accessibleText="http://technogearup.com/" alignment="TOP_RIGHT" layoutX="277.0" layoutY="72.0" onMouseClicked="#openBrowser" prefHeight="28.0" prefWidth="116.0" style="-fx-font-weight: bold;" text="Techno Gear Up">
          <font>
             <Font size="14.0" />
          </font>
       </Hyperlink>
-      <Label layoutX="230.0" layoutY="54.0" prefHeight="20.0" prefWidth="144.0" text="Powered By : Ali Reza">
+      <Label layoutX="255.0" layoutY="54.0" prefHeight="20.0" prefWidth="135.0" text="Powered By : Ali Reza">
          <font>
             <Font size="14.0" />
          </font>

@@ -29,6 +29,7 @@ public class Validate_code_source {
       String line = null;
       int res = 0;
       while ( (line = in.readLine()) != null ) {
+    	  System.out.println("hear\r Test : "+line);
           String pfx = line.substring( 0, 3 );
           try {
              res = Integer.parseInt( pfx );
@@ -38,14 +39,17 @@ public class Validate_code_source {
           }
           if ( line.charAt( 3 ) != '-' ) break;
       }
+      System.out.println("hear \n\r Test : "+res);
       return res;
       }
+    
     private static void say( BufferedWriter wr, String text ) 
        throws IOException {
       wr.write( text + "\r\n" );
       wr.flush();
       return;
       }
+
     private static ArrayList getMX( String hostName )
           throws NamingException {
       // Perform a DNS lookup for MX records in the domain
@@ -90,6 +94,7 @@ public class Validate_code_source {
          mxList = getMX( domain );
       } 
       catch (NamingException ex) {
+    	  System.out.println("Test : " + ex.getMessage());
          return false;
       }
       // Just because we can send mail to the domain, doesn't mean that the
@@ -115,7 +120,7 @@ public class Validate_code_source {
               res = hear( rdr );
               if ( res != 250 ) throw new Exception( "Not ESMTP" );
               // validate the sender address  
-              say( wtr, "MAIL FROM: <tim@orbaker.com>" );
+              say( wtr, "MAIL FROM: <tim@orbaker.com>" ); //ali.reza@sjinnovation.com
               res = hear( rdr );
               if ( res != 250 ) throw new Exception( "Sender rejected" );
               say( wtr, "RCPT TO: <" + address + ">" );
@@ -132,6 +137,7 @@ public class Validate_code_source {
           } 
           catch (Exception ex) {
             // Do nothing but try next host
+        	  System.out.println("Test : " + ex.getMessage());  
           } 
           finally {
             if ( valid ) return true;
