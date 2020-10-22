@@ -1,5 +1,9 @@
 package application;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -8,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -46,10 +51,20 @@ public class MainController implements Initializable{
 		}
 
 	}
-
-    public void openBrowser(ActionEvent actionEvent) throws Exception {
-
-    	System.out.println("Hello---");
+	
+	@FXML
+    void openBrowser(ActionEvent actionEvent){
+				
+		    if(Desktop.isDesktopSupported())
+		    {
+		        try {
+		            Desktop.getDesktop().browse(new URI("http://technogearup.com/"));
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        } catch (URISyntaxException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
 
     }	
 	

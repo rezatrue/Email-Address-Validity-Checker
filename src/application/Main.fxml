@@ -16,15 +16,15 @@
       <Label fx:id="emailText" layoutX="59.0" layoutY="56.0" prefHeight="17.0" prefWidth="151.0" text="Empty" />
       <Label layoutX="15.0" layoutY="80.0" text="Status : " />
       <Label fx:id="statusText" layoutX="59.0" layoutY="81.0" prefHeight="17.0" prefWidth="106.0" text="Unknown " />
-      <Hyperlink accessibleText="http://technogearup.com/" alignment="TOP_RIGHT" layoutX="277.0" layoutY="72.0" onMouseClicked="#openBrowser" prefHeight="28.0" prefWidth="116.0" style="-fx-font-weight: bold;" text="Techno Gear Up">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Hyperlink>
       <Label layoutX="255.0" layoutY="54.0" prefHeight="20.0" prefWidth="135.0" text="Powered By : Ali Reza">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Hyperlink accessibleText="http://technogearup.com/" alignment="TOP_RIGHT" layoutX="277.0" layoutY="72.0" onAction="#openBrowser" prefHeight="28.0" prefWidth="116.0" style="-fx-font-weight: bold;" text="Techno Gear Up">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Hyperlink>
    </children>
 </AnchorPane>
