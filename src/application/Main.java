@@ -17,7 +17,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root);			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Email Address Checker by <BR>");
+			primaryStage.setTitle("Email Address Checker [V:2.00]");
 			primaryStage.setResizable(false);
 			primaryStage.show();
 			
