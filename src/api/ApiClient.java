@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import application.MainController;
+import models.ProfileEmail;
 
 public class ApiClient {
 	private Preferences prefs;
@@ -37,7 +38,6 @@ public class ApiClient {
 		try {
 
 			//URL url = new URL("http://localhost/lin-api/user/login.php");
-			System.out.println(domain + "/" + api + "/user/login.php");
 			URL url = new URL(domain + "/" + api + "/user/login.php");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
@@ -109,10 +109,10 @@ public class ApiClient {
 	    else return "oops something went wrong";
 	    	
 	    if(!check(expaired)) return "Your license has expired";
-	    else {
-	    	int usedNumber = 0;
-	    	if((usedNumber = prefs.getInt("newusage", 0)) > 0) updateUsage(usedNumber, email, password);
-	    }
+//	    else {
+//	    	int usedNumber = 0;
+//	    	if((usedNumber = prefs.getInt("newusage", 0)) > 0) updateUsage(usedNumber, email, password);
+//	    }
 	    	
 		return "Welcome "+ name;
 	}
@@ -131,27 +131,32 @@ public class ApiClient {
 		return false;
 	}
 	
-	public boolean updateUsage(int usedNumber, String email, String password) {
-		System.out.println("usedNumber "+ usedNumber);
+	public boolean upload(ProfileEmail profileEmail) {
+		
+		JSONObject json = new JSONObject();
+		json.put("name", "profile_email");
+		JSONArray array = new JSONArray();
+		JSONObject item = new JSONObject();
+		item.put("userId", profileEmail.getUserId());
+		item.put("profileLink", profileEmail.getProfileLink());
+		item.put("emailAddress", profileEmail.getEmailAddress());
+		item.put("emailStatus", profileEmail.getEmailStatus());
+		array.put(item);
+		
+		json.put("data", array);
+
+		String messageInput = json.toString();
+		
 		String responseString = null;
 		try {	
-			URL url = new URL(domain + "/" + api + "/user/uploadusage.php");
+			URL url = new URL(domain + "/" + api + "/profileemail/upload.php");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", "application/json");
 	
-			String namekey = "user_email";
-			String nameValue =  email ;
-			String passwordkey = "user_password";
-			String passwordValue =  password ;
-			String newusage =  "new_usage" ;
-			
-			String input = "{\"" + namekey + "\":\""+ nameValue + "\",\""+ passwordkey + "\":\""+ passwordValue + "\",\""+ newusage + "\":\""+ usedNumber + "\"}";
-	//		String input = "{\"user_email\":\"reza@mail.com\",\"user_password\":\"123\"}";
-	
 			OutputStream os = conn.getOutputStream();
-			os.write(input.getBytes());
+			os.write(messageInput.getBytes());
 			os.flush();
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -161,7 +166,7 @@ public class ApiClient {
 			String output;
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
-				//System.out.println(output);
+				System.out.println(output);
 				sb.append(output);
 			}
 			responseString = sb.toString();
@@ -173,6 +178,8 @@ public class ApiClient {
 			System.out.println(e.getMessage());
 		}
 		
+		
+		
 		JSONObject obj = null; 
 		try {
 		obj = new JSONObject(responseString);
@@ -180,23 +187,29 @@ public class ApiClient {
 			System.out.println(je.getMessage());
 			return false;
 		}
+		
+		
+		String status = obj.getString("status");
+		System.out.println(status);
+		int total = obj.getInt("total");
+		System.out.println(total);
+		return total == 0 ? false : true;
+		
+		/*
 	    String res = obj.getString("response");
 	    System.out.println(res);
 
 	    if(res.equalsIgnoreCase("ok")) {
-		    JSONArray user = obj.getJSONArray("user");
-		    
+		    JSONArray user = obj.getJSONArray("user");		    
 		    for (int i = 0; i < user.length(); i++)
 		    {
-		        name = user.getJSONObject(i).getString("name");
-		        String limit = user.getJSONObject(i).getString("limits");
-		        String use = user.getJSONObject(i).getString("usage");
+		        name = user.getJSONObject(i).getString("name");		   
 		        expaired = user.getJSONObject(i).getString("expaired");
-		    }
-		  prefs.putInt("newusage", 0);
+		    }		  
 		  return true;  
 	    }
-	    return false;
+	    */
+	    
 	}
 	
 	

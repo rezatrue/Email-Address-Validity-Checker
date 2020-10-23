@@ -33,6 +33,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import models.ProfileEmail;
 
 public class MainController implements Initializable{
 	
@@ -40,9 +41,12 @@ public class MainController implements Initializable{
 	public static String uid;
 	private Preferences prefs = null;
 	private ApiClient apiClient;
+	private ProfileEmail profileEmail;
 	
 	@FXML
-	private TextField textField; 
+	private TextField profileLinkField;
+	@FXML
+	private TextField emailField; 
 	@FXML
 	private Label emailText;
 	@FXML
@@ -50,32 +54,41 @@ public class MainController implements Initializable{
 	@FXML
 	private Button checkBtn;
 	
-	private String mailAddress;
 	
 	@FXML
 	public void genrerateRandom(ActionEvent event){
+		profileEmail = new ProfileEmail();
+		profileEmail.setUserId(uid);
+		profileEmail.setProfileLink(profileLinkField.getText());
+		profileEmail.setEmailAddress(emailField.getText());
+
+		if(profileEmail.getProfileLink().length() < 1 || profileEmail.getEmailAddress().length() < 1 ) 
+			return;
 		
-		mailAddress = textField.getText();
 		Validate_code_source code_source = new Validate_code_source();
 		boolean status = false;
 		
-		emailText.setText(mailAddress);
+		emailText.setText(profileEmail.getEmailAddress());
 		statusText.setText("Checking .. .. ..");
-		textField.setText("");
+		emailField.setText("");
+		profileLinkField.setText("");
 		
-		if(mailAddress!="") 
-			status = code_source.checkEmail(mailAddress);
+		//if(mailAddress!="") 
+		status = code_source.checkEmail(profileEmail.getEmailAddress());
 		
 		if(status){
 			statusText.setText(" Valid ");
 			emailText.setTextFill(Color.web("#0076a3"));
 			statusText.setTextFill(Color.web("#0076a3"));
+			profileEmail.setEmailStatus("Valid");
 		}else{
 			statusText.setText(" INVALID ");
 			emailText.setTextFill(Color.web("#ff0000"));
 			statusText.setTextFill(Color.web("#ff0000"));
+			profileEmail.setEmailStatus("Invalid");
 		}
-
+		
+		apiClient.upload(profileEmail);
 	}
 	
 	@FXML
@@ -134,7 +147,7 @@ public class MainController implements Initializable{
 		dialog.setTitle("Email Varifier Login");
 		dialog.setHeaderText("Please Enter your Credentials");
 		
-		File file = new File("image/login.png");
+		File file = new File("assets/img/login.png");
         Image imageLock = new Image(file.toURI().toString());
         ImageView lockView = new ImageView();
         lockView.setImage(imageLock);
