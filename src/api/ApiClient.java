@@ -24,21 +24,21 @@ import models.ProfileEmail;
 public class ApiClient {
 	private Preferences prefs;
 	private String domain;
-	private String api = "lin-api-copy"; // will change later
+	private String api = "api/ev"; // will change later
 	String name;
 	String expaired;
 	
 	public ApiClient() {
 		prefs = Preferences.userRoot().node(MainController.prefsDb);
-		this.domain = prefs.get("evdataserver", "http://localhost");
+		this.domain = prefs.get("evdataserver", "http://localhost/");
 	}
 
 	public String userAuth(String email, String password) {
 		String responseString = null;
 		try {
 
-			//URL url = new URL("http://localhost/lin-api/user/login.php");
-			URL url = new URL(domain + "/" + api + "/user/login.php");
+			//URL url = new URL("http://localhost/api/ev/user/login.php");
+			URL url = new URL(domain + api + "/user/login.php");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
@@ -149,7 +149,8 @@ public class ApiClient {
 		
 		String responseString = null;
 		try {	
-			URL url = new URL(domain + "/" + api + "/profileemail/upload.php");
+			//api/ev/profileemail/upload.php
+			URL url = new URL(domain + api + "/profileemail/upload.php");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");

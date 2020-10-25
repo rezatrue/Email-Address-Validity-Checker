@@ -88,6 +88,7 @@ public class MainController implements Initializable{
 			profileEmail.setEmailStatus("Invalid");
 		}
 		
+		apiClient = new ApiClient();
 		apiClient.upload(profileEmail);
 	}
 	
